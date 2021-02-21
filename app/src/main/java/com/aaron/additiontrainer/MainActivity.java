@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +19,19 @@ public class MainActivity extends AppCompatActivity {
     private EditText timerInSeconds;
     private Intent intent;
     private Intent previousIntent;
+    TextView scoreBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView credits = findViewById(R.id.credits);
+        credits.setMovementMethod(LinkMovementMethod.getInstance());
+        scoreBoard = findViewById(R.id.scoreBoard);
 
         intent = new Intent(MainActivity.this, PlayActivity.class);
         previousIntent = getIntent();
-        if (previousIntent != null) {
-            Log.d("PrivateLog","IntentMessage: "+previousIntent.getStringExtra(PlayActivity.SCORE));
-            TextView scoreBoard = findViewById(R.id.scoreBoard);
+        if (previousIntent.getStringExtra(PlayActivity.SCORE) != null) {
             scoreBoard.setText("Score:\n"+previousIntent.getStringExtra(PlayActivity.SCORE));
         }
 
@@ -57,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
-        intent.putExtra(TIME_IN_MILLISECONDS,""+Integer.parseInt(timerInSeconds.getText().toString())*1000);
+        if (!timerInSeconds.getText().toString().equals("")) {
+            intent.putExtra(TIME_IN_MILLISECONDS, "" + Integer.parseInt(timerInSeconds.getText().toString()) * 1000);
+        } else {
+            intent.putExtra(TIME_IN_MILLISECONDS,"" + 30 * 1000);
+        }
         startActivity(intent);
+        finish();
     }
 }

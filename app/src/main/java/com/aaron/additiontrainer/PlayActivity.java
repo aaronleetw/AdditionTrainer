@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,19 +63,23 @@ public class PlayActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gameStillRunning) {
-                    if (Integer.parseInt(yourAnswer.getText().toString()) == answer) {
-                        score++;
-                    } else {
-                        score--;
-                    }
-                    initRound();
-                } else {
-                    Log.d("PrivateLog","else");
-                    Intent backToMain = new Intent(PlayActivity.this, MainActivity.class);
-                    backToMain.putExtra(SCORE,""+score);
-                    startActivity(backToMain);
+                if (!yourAnswer.getText().toString().equals("") && Integer.parseInt(yourAnswer.getText().toString()) == answer) {
+                    score++;
+                } else if (!yourAnswer.getText().toString().equals("")) {
+                    score--;
                 }
+                initRound();
+            }
+        });
+        Button restartButton = findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backToMain = new Intent(PlayActivity.this, MainActivity.class);
+                if (!gameStillRunning) {
+                    backToMain.putExtra(SCORE, ""+score);
+                }
+                startActivity(backToMain);
             }
         });
     }
@@ -84,7 +88,7 @@ public class PlayActivity extends AppCompatActivity {
         gameStillRunning = false;
         yourAnswer.setEnabled(false);
         questionList.setText("Game has Ended");
-        submitButton.setText("Back to Home");
+        submitButton.setEnabled(false);
     }
 
     private void initRound() {

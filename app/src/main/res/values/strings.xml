@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AdditionTrainer</string>
+    <string name="app_name">Addition Trainer</string>
+    <string name="hyperlink">Thanks for Playing!\n\nView the Project on GitHub:\n<a href="https://github.com/aaronleetw/AdditionTrainer/">https://github.com/aaronleetw/AdditionTrainer/</a></string>
 </resources>
