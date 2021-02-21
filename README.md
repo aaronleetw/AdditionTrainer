@@ -1,5 +1,6 @@
 # Addition Trainer
 This app trains your addition by continuously giving you short, easy addition problems to solve in a given time.
+### Available for Android 5.0+
 ## Screenshots
 <table><tbody><tr>
 <td><img src=".screenshots/MainActivity0.png"></td>
