@@ -33,7 +33,6 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        // ---------- Init Variables ----
         intent = getIntent();
         timeLeft = Long.parseLong(intent.getStringExtra(MainActivity.TIME_IN_MILLISECONDS));
         timerView = findViewById(R.id.timerText);
@@ -44,7 +43,6 @@ public class PlayActivity extends AppCompatActivity {
         scoreBoard = findViewById(R.id.scoreText);
         questionList = findViewById(R.id.questionText);
 
-        // ---------- Set CountDownTimer ---
         countDownTimer = new CountDownTimer(timeLeft, 1000) {
             @Override
             public void onTick(long l) {
@@ -58,7 +56,6 @@ public class PlayActivity extends AppCompatActivity {
             }
         }.start();
 
-        // -------- Start Actual Game --
         initRound();
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
